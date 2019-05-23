@@ -23,11 +23,9 @@ export default {
     Question
   },
   mounted: function(){
-    console.log('mounted');
     axios.get('https://opentdb.com/api.php?amount=10&category=27&type=multiple')
     .then(r => console.log(r.data))
     .catch(err => console.log("error: "+err))
-    .finally(f => console.log("finally"+f))
   }
 }
 </script>
