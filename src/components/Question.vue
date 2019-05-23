@@ -3,17 +3,22 @@
   <b-jumbotron>
 
     <template slot="lead">
-      {{question.question}} 
+      <p v-html="question.question"></p> 
     </template>
 
     <hr class="my-4">
 
-    <p>
-      List of answers
-    </p>
+    <b-list-group class="mb-3">
+      <b-list-group-item
+        v-for="(answer, index) of answers" 
+        :key="index"
+      >
+        {{answer}}
+      </b-list-group-item>
+    </b-list-group>
 
-    <b-button variant="primary" href="#" class="m-1">Submit</b-button>
     <b-button variant="success" @click="next" href="#" class="m-1">Next</b-button>
+    <b-button variant="primary" href="#" class="m-1">Submit</b-button>
   </b-jumbotron>
 </div>
 </template>
@@ -23,6 +28,12 @@
     props: {
       question: Object,
       next: Function
+    },
+    computed: {
+      answers: function(){
+        let answers = [...this.question.incorrect_answers]
+        return answers
+      }
     }
   }
 </script>
