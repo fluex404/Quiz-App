@@ -4,7 +4,11 @@
     <b-container>
       <b-row>
         <b-col sm="6" offset="3">
-          <Question />
+          <Question 
+          :question="questions[index]"
+          :next="next"
+          >
+          </Question>
         </b-col>
       </b-row>
     </b-container>
@@ -22,9 +26,23 @@ export default {
     Header,
     Question
   },
+  data(){
+    return {
+      questions: [],
+      index: 0
+    }
+  },
+  methods: {
+    next: function(){
+      this.index++;
+      if(this.index > 9) {
+        this.index = 0;
+      }
+    }
+  },
   mounted: function(){
     axios.get('https://opentdb.com/api.php?amount=10&category=27&type=multiple')
-    .then(r => console.log(r.data))
+    .then(r => this.questions = r.data.results)
     .catch(err => console.log("error: "+err))
   }
 }
