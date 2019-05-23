@@ -14,6 +14,7 @@
 <script>
 import Header from './components/Header.vue'
 import Question from './components/Question.vue'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -23,8 +24,10 @@ export default {
   },
   mounted: function(){
     console.log('mounted');
-    fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {method: 'get'})
-    .then(r => console.log(r.json));
+    axios.get('https://opentdb.com/api.php?amount=10&category=27&type=multiple')
+    .then(r => console.log(r.data))
+    .catch(err => console.log("error: "+err))
+    .finally(f => console.log("finally"+f))
   }
 }
 </script>
